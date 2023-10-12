@@ -3,13 +3,13 @@
 import cmd
 
 
-class interpreter(cmd.Cmd):
+class HBNBCommand(cmd.Cmd):
     """This class inherits from cmd.Cmd"""
     prompt = '(hbnb) '
     intro = "Joy"
 
     """other class attributes"""
-    doc_header = 'Documented commands (type help <topic>): \n'
+    doc_header = 'Documented commands (type help <topic>): '
     misc_header = 'misc_header'
     undoc_header = 'undoc_header'
 
@@ -25,14 +25,16 @@ class interpreter(cmd.Cmd):
     def emptyline(self):
         pass
 
+    """Handling the quit command being passed into the console"""
+    def do_quit(self, arg):
+        """returns true to leave the program"""
+        return True
+
+    """"Hnadling the end of file or the quit function"""
     def do_EOF(self, line):
         """The end of file marker"""
         return True
 
 
-if __name__ == "__main__":
-    import sys
-    if len(sys.argv) > 1:
-        interpreter().onecmd()(' '.join(sys.argv[1:]))
-    else:
-        interpreter().cmdloop()
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
