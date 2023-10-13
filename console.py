@@ -3,7 +3,7 @@
 import cmd
 
 
-class interpreter(cmd.Cmd):
+class HBNBCommand(cmd.Cmd):
     """creates a subclass of Cmd class & creates an interpreter"""
     intro = "june"
     prompt = '(hbnb) '
@@ -26,7 +26,7 @@ class interpreter(cmd.Cmd):
 
     """implement the command quit to leave the console/interpreter"""
     def do_quit(self, arg):
-        """returns true while successful"""
+        """Quit command to exit the program"""
         return True
 
     """to terminate the interpreter, the EOF is invoked"""
@@ -36,8 +36,4 @@ class interpreter(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    import sys
-    if len(sys.argv) > 1:
-        interpreter().onecmd()(' '.join(sys.argv[1:]))
-    else:
-        interpreter().cmdloop()
+        HBNBCommand().cmdloop()
