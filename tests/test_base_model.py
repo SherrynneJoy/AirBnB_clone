@@ -2,6 +2,9 @@
 """tests the attributes and methods in the BaseModel"""
 import unittest
 from models.base_model import BaseModel
+from time import sleep
+from datetime import datetime
+import os
 import models
 
 
@@ -53,7 +56,7 @@ class TestBaseModel(unittest.TestCase):
         base.created_at = base.updated_at = day
         basestr = base.__str__()
         self.assertIn("[BaseModel] (2468)", basestr)
-        self.assertIn("'id: 2468'", basestr)
+        self.assertIn("'id': '2468'", basestr)
         self.assertIn("'created_at': " + day_repr, basestr)
         self.assertIn("'updated_at': " + day_repr, basestr)
 
@@ -65,8 +68,8 @@ class TestBaseModel(unittest.TestCase):
     """testing the use of keyword args"""
     def test_kwargs(self):
         day = datetime.today()
-        day_iso = datetime.isoformat()
-        base = BaseModel(id = "123", created_at=day_iso, updated_at=day_iso)
+        day_iso = day.isoformat()
+        base = BaseModel(id="123", created_at=day_iso, updated_at=day_iso)
         self.assertEqual(base.id, "123")
         self.assertEqual(base.created_at, day)
         self.assertEqual(base.updated_at, day)
@@ -76,8 +79,11 @@ class TestBaseModel(unittest.TestCase):
         with self.assertRaises(TypeError):
             BaseModel(id=None, created_at=None, updated_at=None)
 
+
 """creating a class to test the save function"""
-class test_save(self):
+
+
+class test_save(unittest.TestCase):
     """tests the functionality of the save function"""
     def test_update(self):
         base = BaseModel()
@@ -104,7 +110,10 @@ class test_save(self):
         with self.assertRaises(TypeError):
             base.save(None)
 
+
 """a class to test the __dict__"""
+
+
 class test_dict(unittest.TestCase):
     """Tests the functionality of the __dict__"""
     def test_type(self):
@@ -118,14 +127,42 @@ class test_dict(unittest.TestCase):
         self.assertIn("created_at", base.to_dict())
         self.assertIn("updated_at", base.to_dict())
         self.assertIn("__class__", base.to_dict())
-my_model = BaseModel()
-my_model.name = "My First Model"
-my_model.my_number = 89
-print(my_model)
-my_model.save()
-print(my_model)
-my_model_json = my_model.to_dict()
-print(my_model_json)
-print("JSON of my_model:")
-for key in my_model_json.keys():
-    print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+
+    """to test whether datetime attributes are strings"""
+    def test_datetime(self):
+        """tests the datetime function"""
+        base = BaseModel()
+        base_dict = base.to_dict()
+        self.assertEqual(str, type(base_dict["created_at"]))
+        self.assertEqual(str, type(base_dict["updated_at"]))
+
+    """testing the dict output"""
+    def test_dict_output(self):
+        """tests for correct output"""
+        date = datetime.today()
+        base = BaseModel()
+        base.id = "2468"
+        base.created_at = base.updated_at = date
+        mydict = {
+                'id': '2468',
+                '__class__': 'BaseModel',
+                'created_at': date.isoformat(),
+                'updated_at': date.isoformat()
+                }
+        self.assertDictEqual(base.to_dict(), mydict)
+
+    """testing the dictionary with args"""
+    def test_dict_args(self):
+        """testing with args"""
+        base = BaseModel()
+        with self.assertRaises(TypeError):
+            base.to_dict(None)
+
+    """testing for added attributes"""
+    def test_added_attributes(self):
+        """checks for added attributes"""
+        base = BaseModel()
+        base.name = "Joy"
+        base.number = 4
+        self.assertIn("name", base.to_dict())
+        self.assertIn("number", base.to_dict())
