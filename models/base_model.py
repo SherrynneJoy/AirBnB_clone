@@ -29,10 +29,8 @@ class BaseModel:
     def __str__(self):
         """returns the string representation of the class name, id &
         the dictionary representation"""
-        string += "[" + str(self.__class.__name__) + "] "
-        string += "(" + str(self.id) + ") "
-        string += str(self.__dict__)
-        return (string)
+        classname = self.__class__.__name__
+        return "[{}] ({}) {}".format(classname, self.id, self.__dict__)
 
     """define public instance save that updates the public instance
     attribute updated_at with the current datetime"""
