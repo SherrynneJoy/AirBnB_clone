@@ -30,7 +30,8 @@ class HBNBCommand(cmd.Cmd):
     """creates a subclass of Cmd class & creates an interpreter"""
     prompt = '(hbnb) '
     __classes = {
-           "BaseModel"
+           "BaseModel",
+           "User"
             }
 
     """other attributes"""

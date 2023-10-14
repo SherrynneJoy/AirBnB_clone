@@ -2,6 +2,8 @@
 """defines a class FileStorage that serializes instances to a
 JSON file and deserializes JSON file to instances"""
 import json
+from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -36,6 +38,10 @@ class FileStorage:
         """deserializes the JSON file to __objects if the JSON exists"""
         try:
             with open(FileStorage.__file_path) as f:
-                json.load(f)
+                objdict = json.load(f)
+                for i in objdict.values():
+                    clsname = i["__class__"]
+                    del i["__class__"]
+                    self.new(eval(clsname)(**i))
         except FileNotFoundError:
             return
