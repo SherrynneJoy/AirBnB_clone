@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """a class FileStorage that serializes instances to a JSON file and
 deserializes JSON file to instances"""
-import JSON
-from models import storage
+import json
 from models.base_model import BaseModel
 
 
