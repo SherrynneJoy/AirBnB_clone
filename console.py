@@ -31,7 +31,8 @@ class HBNBCommand(cmd.Cmd):
     """This class inherits from cmd.Cmd"""
     prompt = '(hbnb) '
     __classes = {
-            "BaseModel"
+            "BaseModel",
+            "User"
             }
 
     """other class attributes"""

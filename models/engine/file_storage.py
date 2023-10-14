@@ -3,7 +3,7 @@
 deserializes JSON file to instances"""
 import json
 from models.base_model import BaseModel
-
+from models.user import User
 
 class FileStorage:
     """serializes instances to a JOSN file and deserializes JSON file to
@@ -33,5 +33,9 @@ class FileStorage:
         try:
             with open(FileStorage.__file_path) as f:
                 objdict = json.load(f)
+                for o in objdict.values():
+                    class_name = o["__class__"]
+                    del o["__class__"]
+                    self.new(eval(class_name)(**o))
         except FileNotFoundError:
             return
