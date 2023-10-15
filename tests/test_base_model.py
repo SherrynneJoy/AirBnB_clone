@@ -166,3 +166,7 @@ class test_dict(unittest.TestCase):
         base.number = 4
         self.assertIn("name", base.to_dict())
         self.assertIn("number", base.to_dict())
+
+
+if __name__ == '__main__':
+    unittest.main()
