@@ -19,6 +19,7 @@ class BaseModel:
                 if k == "created_at" or k == "updated_at":
                     """converting datetime strings into an object"""
                     self.__dict__[k] = datetime.strptime(v, timefmt)
+                    self.__dict__[k] = datetime.strptime(v, timeformat)
                 else:
                     self.__dict__[k] = v
         else:
@@ -32,15 +33,14 @@ class BaseModel:
         classname = self.__class__.__name__
         return "[{}] ({}) {}".format(classname, self.id, self.__dict__)
 
-    """define public instance save that updates the public instance
-    attribute updated_at with the current datetime"""
     def save(self):
+        """updates the public instance attribute with current datetime"""
         self.updated_at = datetime.today()
         models.storage.save()
 
+    """the dictionary method to store key/value pairs"""
     def to_dict(self):
-        """returns a dictionary containing all keys/values of
-        __dict__ of the instance"""
+        """returns key value payirs of __dict__"""
         mydict = self.__dict__.copy()
         mydict["created_at"] = self.created_at.isoformat()
         mydict["updated_at"] = self.updated_at.isoformat()
