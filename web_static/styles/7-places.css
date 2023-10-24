@@ -9,7 +9,6 @@
 }
 article h2 {
 	font-size: 30px;
-	margin: auto;
 	margin-top: -15px;
 }
 .places {
@@ -27,4 +26,8 @@ article h2 {
 	align-items: baseline;
 	flex-wrap: wrap;
 	justify-content: center;
+}
+.myspace_name {
+	padding-top: 15px;
+	margin-bottom: -20px;
 }
