@@ -10,5 +10,6 @@ header .logo {
 	padding-left: 20px;
 	width: 100px;
 	height: 60px;
-	background: url("../images/logo.png") no-repeat center;
- }
+	background-image: url("https://s3.amazonaws.com/intranet-projects-files/
+	holbertonschool-higher-level_programming+/268/logo.png") no-repeat center;
+}
